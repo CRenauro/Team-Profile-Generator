@@ -5,10 +5,111 @@ const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
 
+var uniqueId = 0;
+varteamArray = [];
+
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
+
+
+function promptUser(answers) {
+    return inquirer.prompt([
+        {
+            type: "list",
+            name: "role",
+            message: "What is your role?",
+            choices: ["Engineer", "Intern", "Manager"]
+        },
+    ]).then(function (resolve) {
+        console.log(resolve)
+        if (resolve.role === "Engineer") {
+            inquirer.prompt([
+                {
+                    name: "name",
+                    type: "input",
+                    message: "What is your name?"
+                    
+                },
+                {
+                    name: "github",
+                    type: "input",
+                    message: "What is your Github Username?"
+                },
+                {
+                    name: "email",
+                    type: "input",
+                    message: "What is your email?"
+                }
+            ]).then(function (engineerResolve) {
+                var newEngineer = newEngineer(engineerResolve.name, engineerResolve.email, uniqueId, engineerResolve.github);
+                uniqueId = uniqueId + 1;
+                console.log(newEngineer);
+                teamArray.push(newEngineer);
+                addUser();
+
+
+
+            });
+
+        } else if (resolve.role === "Intern") {
+            inquirer.prompt ([
+                {
+                    name: "name",
+                    message: "What is your name?",
+                    type: "input"
+                },
+                {
+                    name: "email",
+                    type: "input",
+                    message: "What is your email?"
+                },
+                {
+                    name: "school",
+                    type: "input",
+                    message: "What college did you graduate from?"
+                }      
+            ]).then(function (internResolve) {
+                var newIntern = new Intern(internResolve.name, internResolve.email, uniqueId, internResolve.school);
+                uniqueId = uniqueId + 1;
+                console.log(newIntern);
+                teamArray.push(newIntern);
+                addUser();
+            });
+        } else if (resolve.role === "Manager") {
+            inquirer.prompt([
+                {
+                    name: "name",
+                    message: "What is your name?",
+                    type: "input" 
+                },
+                {
+                    name: "email",
+                    type: "input",
+                    message: "What is your email?"
+                },
+                {
+                    name: "office",
+                    type: "input",
+                    message: "What is your office number?"
+                }
+            ]).then(function (managerResolve) {
+                var newManager = new Manager(managerResolve.name, managerResolve.email, uniqueId, managerResolve.office);
+                uniqueId = uniqueId + 1;
+                console.log(newManager);
+                teamArray.push(newManager);
+                addUser();
+            });
+        };
+    })
+        .catch(function (err) {
+            console.log(err);
+        });
+};
+
+
+
 
 
 // Write code to use inquirer to gather information about the development team members,
