@@ -6,7 +6,7 @@ const path = require("path");
 const fs = require("fs");
 
 var uniqueId = 0;
-varteamArray = [];
+var teamArray = [];
 
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
@@ -48,9 +48,6 @@ function promptUser(answers) {
                 console.log(newEngineer);
                 teamArray.push(newEngineer);
                 addUser();
-
-
-
             });
 
         } else if (resolve.role === "Intern") {
@@ -71,7 +68,7 @@ function promptUser(answers) {
                     message: "What college did you graduate from?"
                 }      
             ]).then(function (internResolve) {
-                var newIntern = new Intern(internResolve.name, internResolve.email, uniqueId, internResolve.school);
+                var newIntern = new Intern(internResolve.name, internResolve.email, uniqueId, internResolve.getSchool);
                 uniqueId = uniqueId + 1;
                 console.log(newIntern);
                 teamArray.push(newIntern);
@@ -108,7 +105,25 @@ function promptUser(answers) {
         });
 };
 
+function generateHTML() {
+    console.log(teamArray)
 
+    function renderManager() {
+
+    };
+
+    function renderIntern() {
+
+    };
+
+    function renderEngineer() {
+
+    };
+
+
+};
+
+//call and invoke function to run
 
 
 
