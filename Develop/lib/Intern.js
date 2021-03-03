@@ -5,10 +5,13 @@ const Employee = require('./Employee');
 class Intern extends Employee {
     constructor(name, id, email, getSchool) {
         super(name, id, email);
-        this.school = getSchool;
+        this.getSchoolVal = getSchool;
     }
     getRole(){
         return 'Intern'
+    }
+    getSchool(){
+        return this.getSchoolVal;
     }
 }
 

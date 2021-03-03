@@ -5,15 +5,20 @@ const Employee = require('./Employee.js');
 class Manager extends Employee {
     constructor(name, id, email, officeNumber) {
         super(name, id, email);
-        this.officeNumber = officeNumber;
+        this.officeNumberVal = officeNumber;
     }
 
     getRole(){
         return 'Manager'
     }
-    getOffice(){
-        return 'officeNumber'
+    officeNumber(){
+        return this.officeNumberVal;
     }
 }
 
 module.exports = Manager;
+
+// const myManager = new Manager("Clara", 1, "crenauro@gmail.com", "crenauro");
+// console.log(myManger.getRole()) // prints Manager
+// console.log(myManager.officeNumber()) // prints 1
+// console.log(myManager.getName()) // prints Clara
