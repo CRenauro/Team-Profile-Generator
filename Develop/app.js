@@ -14,98 +14,63 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./lib/htmlRenderer");
 
 
-function promptUser(answers) {
-    return inquirer.prompt([
-        {
-            type: "list",
-            name: "role",
-            message: "What is your role?",
-            choices: ["Engineer", "Intern", "Manager"]
+function createManager() {
+    inquirer.prompt([
+        {   
+            type: "input",
+            name: "managerName",
+            message: "What is your name?",
+            validate: answer => {
+                if (answer !== "") {
+                    return true;
+                }
+            return "Please enter at least one character.";
+            }
         },
-    ]).then(function (resolve) {
-        console.log(resolve)
-        if (resolve.role === "Engineer") {
-            inquirer.prompt([
-                {
-                    name: "name",
-                    type: "input",
-                    message: "What is your name?"
-                    
-                },
-                {
-                    name: "github",
-                    type: "input",
-                    message: "What is your Github Username?"
-                },
-                {
-                    name: "email",
-                    type: "input",
-                    message: "What is your email?"
+        {
+            type: "input",
+            name: "managerId",
+            message: "What is the manager's ID?",
+            validate: answer => {
+                if (answer !== "") {
+                    return true;
                 }
-            ]).then(function (engineerResolve) {
-                var newEngineer = newEngineer(engineerResolve.name, engineerResolve.email, uniqueId, engineerResolve.github);
-                uniqueId = uniqueId + 1;
-                console.log(newEngineer);
-                teamArray.push(newEngineer);
-                addUser();
-            });
-
-        } else if (resolve.role === "Intern") {
-            inquirer.prompt ([
-                {
-                    name: "name",
-                    message: "What is your name?",
-                    type: "input"
-                },
-                {
-                    name: "email",
-                    type: "input",
-                    message: "What is your email?"
-                },
-                {
-                    name: "school",
-                    type: "input",
-                    message: "What college did you graduate from?"
-                }      
-            ]).then(function (internResolve) {
-                var newIntern = new Intern(internResolve.name, internResolve.email, uniqueId, internResolve.getSchool);
-                uniqueId = uniqueId + 1;
-                console.log(newIntern);
-                teamArray.push(newIntern);
-                addUser();
-            });
-        } else if (resolve.role === "Manager") {
-            inquirer.prompt([
-                {
-                    name: "name",
-                    message: "What is your name?",
-                    type: "input" 
-                },
-                {
-                    name: "email",
-                    type: "input",
-                    message: "What is your email?"
-                },
-                {
-                    name: "office",
-                    type: "input",
-                    message: "What is your office number?"
+            return "Please enter a valid ID.";
+            }
+        },
+        {
+            type: "input",
+            name: "managerEmail",
+            message: "What is the manager's email?",
+            validate: answer => {
+                if (answer !== "") {
+                    return true;
                 }
-            ]).then(function (managerResolve) {
-                var newManager = new Manager(managerResolve.name, managerResolve.email, uniqueId, managerResolve.office);
-                uniqueId = uniqueId + 1;
-                console.log(newManager);
-                teamArray.push(newManager);
-                addUser();
-            });
-        };
-    })
+            return "Please enter a valid email.";
+            }
+        },
+        {
+            type: "input",
+            name: "managerOffice",
+            message: "What is your office number?",
+            validate: answer => {
+                if (answer !== "") {
+                    return true;
+                }
+            return "Please enter your office number.";
+            }
+        }
+    ])
+    
         .catch(function (err) {
             console.log(err);
         });
 };
+       
+
 
 function generateHTML() {
+
     console.log(teamArray)
 
     function renderManager() {
