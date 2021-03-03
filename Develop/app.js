@@ -8,6 +8,11 @@ const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 
+const managerCard = require("./templates/manager.html");
+const internCard = require("./templates/intern.html");
+const engineerCard = require("./templates/engineer.html");
+
+
 
 const uniqueId = 0;
 const fullTeam = [];
@@ -74,9 +79,10 @@ const mainApp = () => {
             response.managerEmail,
             response.officeNumber
         );
-        const managerCardHtml = managercard(manager);
+        const managerCardHtml = managerCard(manager);
         fullTeam.push(managerCardHtml);
-    });
+        console.log(error);
+    }); 
     
     const createEmployee = () => {
         inquirer.prompt([
@@ -120,9 +126,11 @@ const mainApp = () => {
                 response.employeeId,
                 response.employeeEmail
             );
-            const employeeCardHtml = employeecard(employee);
-            fullTeam.push(employeeCardHtml);;
+            const employeeCardHtml = employeeCard(employee);
+            fullTeam.push(employeeCardHtml);
+            console.log(error);
         });
+        
     }
 
     const createEngineer = () => {
@@ -179,9 +187,10 @@ const mainApp = () => {
                 response.engineerEmail,
                 response.engineerGithub
             );
-            const engineerCardHtml = engineercard(engineer);
-            fullTeam.push(engineerCardHtml);;
-        }); 
+            const engineerCardHtml = engineerCard(engineer);
+            fullTeam.push(engineerCardHtml);
+            console.log(error);
+        });
     }
 
     const createIntern = () => {
@@ -238,10 +247,10 @@ const mainApp = () => {
                 response.internEmail,
                 response.internSchool
             );
-            const internCardHtml = interncard(intern);
-            fullTeam.push(internCardHtml);;
+            const internCardHtml = internCard(intern);
+            fullTeam.push(internCardHtml);
+            console.log(error);
         });
-        
     }   
 
 };
@@ -249,7 +258,7 @@ const mainApp = () => {
 
 function generateHTML() {
 
-    // console.log(teamArray)
+    console.log(fullTeam)
 
     function renderManager() {
 
