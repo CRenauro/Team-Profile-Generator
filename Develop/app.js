@@ -21,8 +21,8 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 const { fileURLToPath } = require("url");
-const Employee = require("./lib/Employee");
-const Choices = require("inquirer/lib/objects/choices");
+// const Employee = require("./lib/Employee");
+// const choices = require("inquirer/lib/objects/choices");
 
 
 const mainApp = () => {
@@ -90,62 +90,11 @@ inquirer.prompt([{
                         );
                         const managerCardHtml = managerCard(manager);
                         fullTeam.push(managerCardHtml);
-                        console.log(fullTeam)
+                        console.log(fullTeam);
                         mainApp();
                     });
                     }
                     createManager();
-                    break;
-                case "Employee":
-                    createEmployee = () => {
-                        inquirer.prompt([
-                            {
-                                type: "input",
-                                name: "employeeName",
-                                message: "What is your name?",
-                                validate: answer => {
-                                    if (answer !== "") {
-                                        return true;
-                                    }
-                                return "Please enter at least one character.";
-                                }
-                            },
-                            {
-                                type: "input",
-                                name: "employeeId",
-                                message: "What is the employee's Id?",
-                                validate: answer => {
-                                    if (answer !== "") {
-                                        return true;
-                                    }
-                                return "Please enter a valid ID.";
-                                }
-                            },
-                            {
-                                type: "input",
-                                name: "employeeEmail",
-                                message: "What is the employee's email?",
-                                validate: answer => {
-                                    if (answer !== "") {
-                                        return true;
-                                    }
-                                return "Please enter a valid email.";
-                                },
-                            },
-                        ])
-                        .then(response => {
-                            const employee = new Employee (
-                                response.employeeName,
-                                response.employeeId,
-                                response.employeeEmail
-                            );
-                            const employeeCardHtml = employeeCard(employee);
-                            fullTeam.push(employeeCardHtml);
-                            console.log(error);
-                        });
-                
-                    }
-                    createEmployee();
                     break;
                 case "Engineer":
                     createEngineer = () => {
@@ -164,7 +113,7 @@ inquirer.prompt([{
                             {
                                 type: "input",
                                 name: "engineerId",
-                                message: "What is the engineer's Id?",
+                                message: "What is the Engineer's Id?",
                                 validate: answer => {
                                     if (answer !== "") {
                                         return true;
@@ -175,7 +124,7 @@ inquirer.prompt([{
                             {
                                 type: "input",
                                 name: "engineerEmail",
-                                message: "What is the manager's email?",
+                                message: "What is the Engineer's email?",
                                 validate: answer => {
                                     if (answer !== "") {
                                         return true;
@@ -186,7 +135,7 @@ inquirer.prompt([{
                             {
                                 type: "input",
                                 name: "engineerGithub",
-                                message: "What is your Github user name?",
+                                message: "What is the Engineer's Github user name?",
                                 validate: answer => {
                                     if (answer !== "") {
                                         return true;
@@ -204,8 +153,10 @@ inquirer.prompt([{
                             );
                             const engineerCardHtml = engineerCard(engineer);
                             fullTeam.push(engineerCardHtml);
+                            console.log(fullTeam);
+                            mainApp();
                         });
-                    }
+                        }
                     createEngineer();
                     break;
                 case "Intern":
@@ -214,7 +165,7 @@ inquirer.prompt([{
                             {
                                 type: "input",
                                 name: "internName",
-                                message: "What is your name?",
+                                message: "What is the Intern's name?",
                                 validate: answer => {
                                     if (answer !== "") {
                                         return true;
@@ -225,7 +176,7 @@ inquirer.prompt([{
                             {
                                 type: "input",
                                 name: "internId",
-                                message: "What is the intern's Id?",
+                                message: "What is the Intern's Id?",
                                 validate: answer => {
                                     if (answer !== "") {
                                         return true;
@@ -236,7 +187,7 @@ inquirer.prompt([{
                             {
                                 type: "input",
                                 name: "internEmail",
-                                message: "What is the intern's email?",
+                                message: "What is the Intern's email?",
                                 validate: answer => {
                                     if (answer !== "") {
                                         return true;
@@ -265,14 +216,15 @@ inquirer.prompt([{
                             );
                             const internCardHtml = internCard(intern);
                             fullTeam.push(internCardHtml);
-                            console.log(error);
+                            console.log(fullTeam);
+                            mainApp();
                         });
-                    }
+                        }
                     createIntern();
             }           
 
 })
-}
+};
 
 
 function generateHTML() {
@@ -295,16 +247,4 @@ function generateHTML() {
 };
 
 
-
-const managerCardHtml = managerCard(manager);
-fullTeam.push(managerCardHtml);
-console.log(fullTeam);
 mainApp();
-
-
-
-// const managerCardHtml = managerCard(manager);
-// fullTeam.push(managerCardHtml);
-
-// //call and invoke function to run
-// mainApp();
