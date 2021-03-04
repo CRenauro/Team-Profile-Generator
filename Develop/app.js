@@ -81,7 +81,6 @@ const mainApp = () => {
         );
         const managerCardHtml = managerCard(manager);
         fullTeam.push(managerCardHtml);
-        console.log(error);
     }); 
     
     const createEmployee = () => {
